@@ -3,20 +3,29 @@ import { classes } from "./constants.js";
 const app = document.querySelector(`.${classes.base}`);
 const nearButton = app.querySelector(`.${classes.nearButton}`);
 const poleButton = app.querySelector(`.${classes.poleButton}`);
+const radioOptions = app.querySelector(`.${classes.radioOptions}`);
 const poleInput = app.querySelector(`.${classes.input}`);
 const resultsHTML = app.querySelector(`.${classes.resultsHTML}`);
 const infoHTML = app.querySelector(`.${classes.info}`);
 const filter = app.querySelector(`.${classes.filter}`);
 const filterOptions = app.querySelector(`.${classes.filterOptions}`);
+const filterSelected = radioOptions.querySelector('[checked]');
+
 
 let results;
+let foo = filterSelected?.value;
 
-function init() {
-    const apiUrl = () => `https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia.json?rf=html&srsname=wgs84`;
-    fetchAPI(apiUrl);
+function init(value) {
+    if(value === "all") {
+        const apiUrl = () => `https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia.json?rf=html&srsname=wgs84`;
+        fetchAPI(apiUrl);
+    } else {
+        const apiUrl = (extraParams = '') => `https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia.json?rf=html&srsname=wgs84&${extraParams}`
+        getMyLocation(apiUrl);
+    }
 }
 
-init();
+init(foo);
 
 const obj = {
     value: 0
@@ -55,9 +64,8 @@ poleInput.addEventListener('change', ( { target }) => {
 
 })
 
-nearButton.addEventListener('click', () => {
-    const apiUrl = (extraParams = '') => `https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia.json?rf=html&srsname=wgs84&${extraParams}`
-    getMyLocation(apiUrl);
+radioOptions.addEventListener('change', ( { target }) => {
+    init(target.value);
 })
 
 filter.addEventListener('submit', (event) => {

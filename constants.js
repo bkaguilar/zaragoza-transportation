@@ -6,6 +6,7 @@ export const classes = {
   poleButton: `${base}__button--pole`,
   input: `${base}__input`,
   radio: `${base}__radio`,
+  radioOptions: `${base}__radioOptions`,
   resultsHTML: `${base}__results`,
   info: `${base}__info`,
   label: `${base}__label`,

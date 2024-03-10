@@ -13,24 +13,25 @@
     <span class="urbanTransportation__info"></span>
 
     <form class="urbanTransportation__filter">
+        <fieldset class="urbanTransportation__radioOptions">
+            <legend>Filter by:</legend>
+            <div>
+                <label for="stopFilterNear">Stops near me</label>
+                <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterNear" value="near" checked>
+            </div>
+            <div>
+                <label for="stopFilterAll">All</label>
+                <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterAll" value="all">
+            </div>
+            <!-- <button type="button" class="urbanTransportation__button">Filter</button> -->
+        </fieldset>
+
         <fieldset>
             <label for="stopFilter">Filter by stop number:</label>
             <input type="number" placeholder="e.g 701" min="1" step="1" minlength="2" maxlength="5" class="urbanTransportation__input" name="stopFilter" id="stopFilter" list="stopFilterOptions">
             <datalist id="stopFilterOptions" class="urbanTransportation__filerOptions">
                 <option value="701"></option>
             </datalist>
-        </fieldset>
-
-        <fieldset>
-            <legend>Filter by:</legend>
-            <div>
-                <label for="stopFilterNear">Stops near me</label>
-                <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterNear" value="near">
-            </div>
-            <div>
-                <label for="stopFilterAll">All</label>
-                <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterAll" value="all" checked>
-            </div>
         </fieldset>
     </form>
 
