@@ -4,7 +4,8 @@ export const classes = {
   base: `${base}__base`,
   nearButton: `${base}__button--near`,
   poleButton: `${base}__button--pole`,
-  poleInput: `${base}__input`,
+  input: `${base}__input`,
+  radio: `${base}__radio`,
   resultsHTML: `${base}__results`,
   info: `${base}__info`,
   label: `${base}__label`,
@@ -15,5 +16,7 @@ export const classes = {
   arrivalTime: `${base}__arrivalTime`,
   arrivalTimeNow: `${base}__arrivalTimeNow`,
   arrivalTimeNext: `${base}__arrivalTimeNext`,
+  filter: `${base}__filter`,
+  filterOptions: `${base}__filerOptions`,
 }
 

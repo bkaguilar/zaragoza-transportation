@@ -3,9 +3,20 @@ import { classes } from "./constants.js";
 const app = document.querySelector(`.${classes.base}`);
 const nearButton = app.querySelector(`.${classes.nearButton}`);
 const poleButton = app.querySelector(`.${classes.poleButton}`);
-const poleInput = app.querySelector(`.${classes.poleInput}`);
+const poleInput = app.querySelector(`.${classes.input}`);
 const resultsHTML = app.querySelector(`.${classes.resultsHTML}`);
 const infoHTML = app.querySelector(`.${classes.info}`);
+const filter = app.querySelector(`.${classes.filter}`);
+const filterOptions = app.querySelector(`.${classes.filterOptions}`);
+
+let results;
+
+function init() {
+    const apiUrl = () => `https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia.json?rf=html&srsname=wgs84`;
+    fetchAPI(apiUrl);
+}
+
+init();
 
 const obj = {
     value: 0
@@ -23,16 +34,25 @@ const proxy = new Proxy(obj, {
     }
 });
 
-poleInput.addEventListener('input', ( { target }) => {
-    let isValid = true;
+poleInput.addEventListener('change', ( { target }) => {
     const value = Number(target.value);
 
     if(!Number.isInteger(value)) {
-        console.warn("Add a valid value");
-        isValid = false;
+        infoHTML.textContent = `Add a valid value`;
     }
 
-    poleButton.disabled = !isValid;
+    const list = document.querySelectorAll(`.${classes.stopBox}`);
+
+    [...list].filter(li => {
+        if(target.value && li.dataset.id !== target.value){
+            li.setAttribute('hidden', true);
+            return li;
+        }
+
+        li.removeAttribute('hidden')
+        return li;
+    })
+
 })
 
 nearButton.addEventListener('click', () => {
@@ -40,11 +60,15 @@ nearButton.addEventListener('click', () => {
     getMyLocation(apiUrl);
 })
 
-poleButton.addEventListener('click', () => {
-    const pole = Number(poleInput.value);
-    const apiUrl = () => `https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia/${pole}.json?rf=html&srsname=wgs84`;
-    fetchAPI(apiUrl);
+filter.addEventListener('submit', (event) => {
+    event.preventDefault();
 })
+
+// poleButton.addEventListener('click', () => {
+//     const pole = Number(poleInput.value);
+//     const apiUrl = () => `https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia/${pole}.json?rf=html&srsname=wgs84`;
+//     fetchAPI(apiUrl);
+// })
 
 
 function fetchAPI(endpoint, extraParams) {
@@ -59,9 +83,11 @@ function fetchAPI(endpoint, extraParams) {
         })
         .then((data = []) => {
             resultsHTML.innerHTML = '';
-            const results = [...(data.result ?? [data])];
+            results = [...(data.result ?? [data])];
 
             resultsHTML.append(getHTML(results));
+
+            filterOptions.innerHTML = results.map(r => `<option value="${r.id}">${r.title}</option>`);
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -73,7 +99,7 @@ function getHTML(data) {
     const list = document.createElement('ul');
     list.classList.add(classes.list);
 
-    list.innerHTML = data.map(( {title = '', destinos = []}) => {
+    list.innerHTML = data.map(( {id = "", title = "", destinos = [],}) => {
         let htmlDirection;
         const htmlDestinations = destinos.map((destination, index) => {
             htmlDirection = htmlDirection ?? `<span class="${classes.directionName}">${destination?.destino}</span>`;
@@ -81,11 +107,13 @@ function getHTML(data) {
         });
 
         return destinos.length
-            ? `<li class="${classes.stopBox}"><h3>
-                <span class="${classes.stopName}">📍 ${title.toLowerCase()}</span>
-                <span class="${classes.label}">➡️ ${htmlDirection.toLowerCase()}</span>
-              </h3>
-              <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul></li>`
+            ? `<li class="${classes.stopBox}" data-id="${id}">
+                <h3>
+                    <span class="${classes.stopName}">📍 ${title.toLowerCase()}</span>
+                    <span class="${classes.label}">➡️ ${htmlDirection.toLowerCase()}</span>
+                </h3>
+                <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul>
+              </li>`
             : '';
 
     }).join('') || 'Out of service';

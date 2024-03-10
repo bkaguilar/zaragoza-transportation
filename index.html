@@ -11,16 +11,28 @@
   <div class="urbanTransportation__base">
     <h1 class="urbanTransportation__title">Zaragoza urban transportation</h1>
     <span class="urbanTransportation__info"></span>
-    <button type="button" class="urbanTransportation__button urbanTransportation__button--near">
-      Stops near me
-    </button>
 
-    <fieldset>
-      <input type="number" placeholder="120" minlength="2" maxlength="5" class="urbanTransportation__input">
-      <button type="button" class="urbanTransportation__button urbanTransportation__button--pole" disabled>
-        Stops for pole number 102
-      </button>
-  </fieldset>
+    <form class="urbanTransportation__filter">
+        <fieldset>
+            <label for="stopFilter">Filter by stop number:</label>
+            <input type="number" placeholder="e.g 701" min="1" step="1" minlength="2" maxlength="5" class="urbanTransportation__input" name="stopFilter" id="stopFilter" list="stopFilterOptions">
+            <datalist id="stopFilterOptions" class="urbanTransportation__filerOptions">
+                <option value="701"></option>
+            </datalist>
+        </fieldset>
+
+        <fieldset>
+            <legend>Filter by:</legend>
+            <div>
+                <label for="stopFilterNear">Stops near me</label>
+                <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterNear" value="near">
+            </div>
+            <div>
+                <label for="stopFilterAll">All</label>
+                <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterAll" value="all" checked>
+            </div>
+        </fieldset>
+    </form>
 
   <section class="urbanTransportation__results"></section>
 </div>
