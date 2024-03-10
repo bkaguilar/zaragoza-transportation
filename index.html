@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="style.css">
   <script type="module" src="index.js" defer></script>
 </head>
 <body>
-  <h1>test</h1>
   <div class="urbanTransportation__base">
+    <h1 class="urbanTransportation__title">Zaragoza urban transportation</h1>
+    <span class="urbanTransportation__info"></span>
     <button type="button" class="urbanTransportation__button urbanTransportation__button--near">
       Stops near me
     </button>
@@ -19,6 +21,8 @@
         Stops for pole number 102
       </button>
   </fieldset>
+
+  <section class="urbanTransportation__results"></section>
 </div>
 </body>
 </html>

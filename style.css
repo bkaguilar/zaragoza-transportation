@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'Roboto'; /* Specify the name of your font family */
+  src: url('assets//fonts/Roboto/Roboto-Regular.woff2') format('woff2'), /* Specify the path to your font file */
+  /* Add more src declarations for different font formats if necessary */
+  /* You can also add other font properties here, such as font-weight and font-style */
+}
+
+
+
+body {
+  font-family: 'Roboto', sans-serif; /* Use the custom font as the preferred font family */
+  background-color: #edeceb;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.urbanTransportation__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.urbanTransportation__stopBox {
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.urbanTransportation__stopName {
+  color: #cd4646;
+  text-transform: capitalize;
+}
+
+.urbanTransportation__label {
+  color: grey;
+  text-transform: capitalize;
+  font-size: 0.9rem;
+}
+
+.urbanTransportation__arrivalTime {
+  font-weight: bold;
+}
+
+.urbanTransportation__arrivalTimeNow {
+  font-size: 2.5rem;
+}
+
+.urbanTransportation__arrivalTimeNext {
+  margin-top: 10px;
+}

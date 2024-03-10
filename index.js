@@ -1,9 +1,27 @@
-console.log('test');
+import { classes } from "./constants.js";
 
-const app = document.querySelector('.urbanTransportation__base');
-const nearButton = app.querySelector('.urbanTransportation__button--near');
-const poleButton = app.querySelector('.urbanTransportation__button--pole');
-const poleInput = app.querySelector('.urbanTransportation__input');
+const app = document.querySelector(`.${classes.base}`);
+const nearButton = app.querySelector(`.${classes.nearButton}`);
+const poleButton = app.querySelector(`.${classes.poleButton}`);
+const poleInput = app.querySelector(`.${classes.poleInput}`);
+const resultsHTML = app.querySelector(`.${classes.resultsHTML}`);
+const infoHTML = app.querySelector(`.${classes.info}`);
+
+const obj = {
+    value: 0
+  };
+
+// Create a Proxy for the object
+const proxy = new Proxy(obj, {
+    // Define a trap for setting properties
+    set(target, key, value) {
+        console.log(`Setting ${key} to ${value}`);
+        // Set the property value on the target object
+        target[key] = value;
+        // Indicate that the operation was successful
+        return true;
+    }
+});
 
 poleInput.addEventListener('input', ( { target }) => {
     let isValid = true;
@@ -39,14 +57,40 @@ function fetchAPI(endpoint, extraParams) {
 
             return response.json();
         })
-        .then((data) => {
+        .then((data = []) => {
+            resultsHTML.innerHTML = '';
+            const results = [...(data.result ?? [data])];
 
-            console.log(data);
+            resultsHTML.append(getHTML(results));
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
 
+}
+
+function getHTML(data) {
+    const list = document.createElement('ul');
+    list.classList.add(classes.list);
+
+    list.innerHTML = data.map(( {title = '', destinos = []}) => {
+        let htmlDirection;
+        const htmlDestinations = destinos.map((destination, index) => {
+            htmlDirection = htmlDirection ?? `<span class="${classes.directionName}">${destination?.destino}</span>`;
+            return `<li class="${index === 0 ? classes.arrivalTimeNow : classes.arrivalTimeNext}"><span>${destination?.minutos}</span><span class="${classes.label}"> MNTS</span></li>`
+        });
+
+        return destinos.length
+            ? `<li class="${classes.stopBox}"><h3>
+                <span class="${classes.stopName}">📍 ${title.toLowerCase()}</span>
+                <span class="${classes.label}">➡️ ${htmlDirection.toLowerCase()}</span>
+              </h3>
+              <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul></li>`
+            : '';
+
+    }).join('') || 'Out of service';
+
+    return list;
 }
 
 function getMyLocation(apiUrl) {
@@ -61,8 +105,8 @@ function getMyLocation(apiUrl) {
         console.log(`Longitude: ${longitude},Latitude: ${latitude}`);
 
         if(!latitude.toString().startsWith('41')) {
-            nearButton.disabled = true;
             console.warn(`You are out of Zaragoza`);
+            infoHTML.textContent = `You are out of Zaragoza`;
             coordinates = '';
 
         }
