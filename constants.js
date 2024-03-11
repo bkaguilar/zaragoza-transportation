@@ -19,5 +19,10 @@ export const classes = {
   arrivalTimeNext: `${base}__arrivalTimeNext`,
   filter: `${base}__filter`,
   filterOptions: `${base}__filerOptions`,
+  updateButton: `${base}__button--update`,
+}
+
+export const constants = {
+  apiEndpoint: "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia.json?rf=html&srsname=wgs84",
 }
 

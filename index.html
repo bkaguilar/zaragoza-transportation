@@ -10,9 +10,8 @@
 <body>
   <div class="urbanTransportation__base">
     <h1 class="urbanTransportation__title">Zaragoza urban transportation</h1>
-    <span class="urbanTransportation__info"></span>
 
-    <form class="urbanTransportation__filter">
+    <form class="urbanTransportation__filter" data-value="near">
         <fieldset class="urbanTransportation__radioOptions">
             <legend>Filter by:</legend>
             <div>
@@ -23,7 +22,6 @@
                 <label for="stopFilterAll">All</label>
                 <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterAll" value="all">
             </div>
-            <!-- <button type="button" class="urbanTransportation__button">Filter</button> -->
         </fieldset>
 
         <fieldset>
@@ -32,9 +30,11 @@
             <datalist id="stopFilterOptions" class="urbanTransportation__filerOptions">
                 <option value="701"></option>
             </datalist>
+            <button type="button" class="urbanTransportation__button urbanTransportation__button--update">Update</button>
         </fieldset>
     </form>
 
+    <span class="urbanTransportation__info" role="alert"></span>
   <section class="urbanTransportation__results"></section>
 </div>
 </body>

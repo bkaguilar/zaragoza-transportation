@@ -75,8 +75,6 @@ option {
 .urbanTransportation__stopBox {
   padding: 10px;
   background-color: white;
-  border-radius: 10px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .urbanTransportation__stopName {
@@ -100,4 +98,20 @@ option {
 
 .urbanTransportation__arrivalTimeNext {
   margin-top: 10px;
+}
+
+.urbanTransportation__stopBox,
+.urbanTransportation__button {
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.urbanTransportation__button {
+  cursor: pointer;
+  padding: 16px;
+  background-color: #cd4646;
+  color: white;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
 }
