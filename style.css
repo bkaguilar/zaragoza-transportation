@@ -5,11 +5,32 @@
   /* You can also add other font properties here, such as font-weight and font-style */
 }
 
+:root {
+  --light-blue: rgb(102,168,255);
+  --normal-blue: rgb(63,109,247);
+  --dark-blue: rgb(25, 51, 158);
 
+  --grey: rgb(214,221,239);
+  --dark-grey: rgb(188,191,202);
+
+  --border-radius: 12px;
+  --border-width: 4px;
+
+  --normal-spacing: 16px;
+  --large-spacing: 20px;
+  --xLarge-spacing: 60px;
+}
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Roboto', sans-serif; /* Use the custom font as the preferred font family */
-  background-color: #edeceb;
+  background: linear-gradient(var(--light-blue), var(--dark-blue) 5%);
+  background-repeat: no-repeat;
+  color: white;
+  min-height: 100vh;
   margin: 0;
   scrollbar-gutter: stable both-edges;
 }
@@ -20,17 +41,59 @@ ul {
   margin: 0;
 }
 
+h1, h2, h3, fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+fieldset {
+  border: none;
+}
+
 .urbanTransportation__base {
   padding: 10px 20px;
   margin: 0 auto;
   max-width: 1280px;
 
 }
+
+.urbanTransportation__title {
+  margin: var(--normal-spacing) 0;
+}
+
+.urbanTransportation__filter,
+.urbanTransportation__results {
+  background-color: white;
+  color: black;
+  padding: var(--large-spacing);
+}
+
+.urbanTransportation__filter {
+  max-width:  768px;
+  border-radius: var(--border-radius);
+  margin: 0 auto;
+}
+
+.urbanTransportation__results {
+  margin-top: var(--xLarge-spacing);
+  border-radius: 40px;
+}
+
+.urbanTransportation__radioOptions {
+  display: flex;
+}
+
+.urbanTransportation__inputOptions {
+  border-top: var(--border-width) solid var(--grey);
+  margin-top: var(--large-spacing);
+  padding-top: var(--large-spacing);
+}
+
+
 .urbanTransportation__list {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 20px;
 }
 
 .urbanTransportation__input {
@@ -73,12 +136,16 @@ option {
 }
 
 .urbanTransportation__stopBox {
-  padding: 10px;
-  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--normal-spacing);
+  padding: var(--large-spacing) var(--normal-spacing);
+  border-bottom: var(--border-width) solid var(--grey);
 }
 
 .urbanTransportation__stopName {
-  color: #cd4646;
+  color: var(--dark-blue);
   text-transform: capitalize;
 }
 
@@ -100,10 +167,8 @@ option {
   margin-top: 10px;
 }
 
-.urbanTransportation__stopBox,
 .urbanTransportation__button {
-  border-radius: 10px;
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  border-radius: var(--border-radius);
 }
 
 .urbanTransportation__button {

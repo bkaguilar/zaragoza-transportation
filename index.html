@@ -11,26 +11,28 @@
   <div class="urbanTransportation__base">
     <h1 class="urbanTransportation__title">Zaragoza urban transportation</h1>
 
+
     <form class="urbanTransportation__filter" data-value="near">
+        <h2>Filters</h2>
         <fieldset class="urbanTransportation__radioOptions">
             <legend>Filter by:</legend>
             <div>
-                <label for="stopFilterNear">Stops near me</label>
+                <label for="stopFilterNear" class="urbanTransportation__label">Stops near me</label>
                 <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterNear" value="near" checked>
             </div>
             <div>
-                <label for="stopFilterAll">All</label>
+                <label for="stopFilterAll" class="urbanTransportation__label">All</label>
                 <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterAll" value="all">
             </div>
+            <button type="button" class="urbanTransportation__button urbanTransportation__button--update">Update</button>
         </fieldset>
 
-        <fieldset>
-            <label for="stopFilter">Filter by stop number:</label>
+        <fieldset class="urbanTransportation__inputOptions">
+            <label for="stopFilter" class="urbanTransportation__label">Filter by stop number:</label>
             <input type="number" placeholder="e.g 701" min="1" step="1" minlength="2" maxlength="5" class="urbanTransportation__input" name="stopFilter" id="stopFilter" list="stopFilterOptions">
             <datalist id="stopFilterOptions" class="urbanTransportation__filerOptions">
                 <option value="701"></option>
             </datalist>
-            <button type="button" class="urbanTransportation__button urbanTransportation__button--update">Update</button>
         </fieldset>
     </form>
 

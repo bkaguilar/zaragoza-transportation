@@ -118,11 +118,13 @@ class urbanTransportationApp {
             return destinos.length
                 ? `<li class="${classes.stopBox}" data-id="${id}">
                     <h3>
-                        <span class="${classes.stopName}">📍 ${title.toLowerCase()}</span>
+                        <span class="${classes.stopName}">📍${title.toLowerCase()}</span>
                         <span class="${classes.label}">➡️ ${htmlDirection.toLowerCase()}</span>
-                        <span class="${classes.label}">${new Date(lastUpdated).toLocaleTimeString()}</span>
                     </h3>
-                    <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul>
+                    <div>
+                        <span class="${classes.label}">Last updated time: ${new Date(lastUpdated).toLocaleTimeString()}</span>
+                        <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul>
+                    </div>
                   </li>`
                 : '';
 
