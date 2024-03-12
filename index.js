@@ -36,6 +36,8 @@ class urbanTransportationApp {
 
             const list = this.app.querySelectorAll(`.${classes.stopBox}`);
 
+            console.log(list);
+
             [...list].filter(li => {
                 if(target.value && li.dataset.id !== target.value){
                     li.setAttribute('hidden', true);
@@ -57,7 +59,7 @@ class urbanTransportationApp {
         });
 
         this.buttonUpdate.addEventListener('click', () => {
-            this.renderResults(filter.dataset.value);
+            this.renderResults(this.filter.dataset.value);
             this.clearInput();
         })
 
@@ -120,11 +122,9 @@ class urbanTransportationApp {
                     <h3>
                         <span class="${classes.stopName}">📍${title.toLowerCase()}</span>
                         <span class="${classes.label}">➡️ ${htmlDirection.toLowerCase()}</span>
+                        <div class="${classes.label}">Last updated time: ${new Date(lastUpdated).toLocaleTimeString()}</div>
                     </h3>
-                    <div>
-                        <span class="${classes.label}">Last updated time: ${new Date(lastUpdated).toLocaleTimeString()}</span>
-                        <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul>
-                    </div>
+                    <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul>
                   </li>`
                 : '';
 
