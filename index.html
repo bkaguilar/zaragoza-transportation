@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="index.js" defer></script>
+</head>
+<body>
+    <div class="urbanTransportation__base">
+        <h1 class="urbanTransportation__title">Zaragoza urban transportation</h1>
+
+        <h2>Filters</h2>
+        <form class="urbanTransportation__filter" data-value="near">
+            <fieldset class="urbanTransportation__radioOptions">
+                <legend>Filter by:</legend>
+                <div>
+                    <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterNear" value="near" checked>
+                    <label for="stopFilterNear" class="urbanTransportation__filterLabel">Stops near me</label>
+                </div>
+                <div>
+                    <input type="radio" class="urbanTransportation__radio" name="stopFilter" id="stopFilterAll" value="all">
+                    <label for="stopFilterAll" class="urbanTransportation__filterLabel">All</label>
+                </div>
+                <button type="button" class="urbanTransportation__button urbanTransportation__button--update">Update</button>
+                <span class="urbanTransportation__label">Last updated time: <time class="urbanTransportation__lastUpdatedTime"></time></span>
+                <div class="urbanTransportation__info is-hidden" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="currentColor" d="M11 10.98a1 1 0 1 1 2 0v6a1 1 0 1 1-2 0v-6ZM12 6.051a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/><path fill="currentColor" fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2ZM4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z" clip-rule="evenodd"/></svg>
+                    You are out of Zaragoza
+                </div>
+            </fieldset>
+            <!-- <svg  width="100" height="100"><use xlink:href="/assets/svg/arrow.svg#arrow"/></svg> -->
+
+            <fieldset class="urbanTransportation__inputOptions">
+                <label for="stopFilter" class="urbanTransportation__label">Filter by stop number:
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"><path fill="currentColor" fill-rule="evenodd" d="M18.319 14.433A8.001 8.001 0 0 0 6.343 3.868a8 8 0 0 0 10.564 11.976l.043.045 4.242 4.243a1 1 0 1 0 1.415-1.415l-4.243-4.242a1.116 1.116 0 0 0-.045-.042Zm-2.076-9.15a6 6 0 1 1-8.485 8.485 6 6 0 0 1 8.485-8.485Z" clip-rule="evenodd"/></svg>
+                </label>
+                <input type="number" placeholder="e.g 701" min="1" step="1" minlength="2" maxlength="5" class="urbanTransportation__input" name="stopFilter" id="stopFilter" list="stopFilterOptions">
+                <datalist id="stopFilterOptions" class="urbanTransportation__filerOptions">
+                    <option value="701"></option>
+                </datalist>
+            </fieldset>
+        </form>
+        <section class="urbanTransportation__results"></section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,254 @@
+@font-face {
+  font-family: 'Roboto'; /* Specify the name of your font family */
+  src: url('assets//fonts/Roboto/Roboto-Regular.woff2') format('woff2'), /* Specify the path to your font file */
+  /* Add more src declarations for different font formats if necessary */
+  /* You can also add other font properties here, such as font-weight and font-style */
+}
+
+:root {
+  --blue: rgb(234, 243, 255);
+  --light-blue: rgb(102,168,255);
+  --normal-blue: rgb(63,109,247);
+  --dark-blue: rgb(25, 51, 158);
+
+  --grey: rgb(214,221,239);
+  --dark-grey: rgb(188,191,202);
+
+  --border-radius: 12px;
+  --border-width: 4px;
+
+  --small-spacing: 8px;
+  --normal-spacing: 16px;
+  --large-spacing: 20px;
+  --xLarge-spacing: 64px;
+
+  --info-height: 45px;
+}
+
+@layer reset, component, custom;
+
+@layer reset {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif; /* Use the custom font as the preferred font family */
+    background: linear-gradient(var(--light-blue), var(--dark-blue) 5%);
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 100vh;
+    margin: 0;
+    scrollbar-gutter: stable both-edges;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  h1, h2, h3, fieldset {
+    margin: 0;
+    padding: 0;
+  }
+
+  fieldset {
+    border: none;
+  }
+}
+
+@layer custom {
+  .is-hidden {
+    display: none;
+  }
+}
+@layer component {
+  .urbanTransportation__base {
+    padding: 10px 20px;
+    margin: 0 auto;
+    max-width: 1280px;
+
+  }
+
+  .urbanTransportation__title {
+    margin: var(--normal-spacing) 0;
+  }
+
+
+  .urbanTransportation__radioOptions {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--normal-spacing);
+  }
+
+  .urbanTransportation__filter,
+  .urbanTransportation__results {
+    background-color: white;
+    color: black;
+    padding: var(--large-spacing);
+  }
+
+  .urbanTransportation__filter {
+    max-width:  768px;
+    border-radius: var(--border-radius);
+    margin: 0 auto;
+  }
+
+  .urbanTransportation__radio {
+    display: none;
+  }
+
+  .urbanTransportation__filterLabel {
+    border-radius: var(--border-radius);
+    background-color: var(--grey);
+    color: var(--dark-grey);
+    padding: var(--small-spacing) var(--normal-spacing);
+    font-weight: bold;
+    cursor: pointer;
+
+    .urbanTransportation__radio:checked + & {
+      background-color: var(--normal-blue);
+      color: white;
+    }
+  }
+
+  .urbanTransportation__info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -100%;
+    max-height: var(--info-height);
+    gap: var(--small-spacing);
+    background-color: var(--blue);
+    color: var(--dark-blue);
+    border-radius: var(--border-radius);
+    padding: var(--small-spacing) var(--normal-spacing);
+  }
+
+  .urbanTransportation__results {
+    margin-top: var(--xLarge-spacing);
+    border-radius: 40px;
+  }
+
+  .urbanTransportation__inputOptions {
+    border-top: var(--border-width) solid var(--grey);
+    margin-top: calc(var(--info-height) + var(--small-spacing));
+    padding-top: var(--large-spacing);
+  }
+
+  .urbanTransportation__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .urbanTransportation__input {
+    padding: 10px;
+    font-size: 1.1rem;
+    border-radius: var(--border-radius);
+    min-width: 40%;
+
+      /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    -moz-appearance: textfield;
+  }
+
+  datalist {
+    position: absolute;
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 0 0 5px 5px;
+    border-top: none;
+    font-family: sans-serif;
+    width: 350px;
+    padding: 5px;
+    max-height: 10rem;
+    overflow-y: auto
+  }
+
+  option {
+    background-color: white;
+    padding: 4px;
+    color: blue;
+    margin-bottom: 1px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .urbanTransportation__stopBox {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--normal-spacing);
+    padding: var(--large-spacing) var(--normal-spacing);
+
+    &:not(:last-child) {
+      border-bottom: var(--border-width) solid var(--grey);
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  .urbanTransportation__stopName {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--blue);
+    border-radius: var(--border-radius);
+    color: var(--dark-blue);
+    text-transform: capitalize;
+    padding: var(--small-spacing);
+  }
+
+  .urbanTransportation__label {
+    color: grey;
+    text-transform: capitalize;
+    font-size: 0.9rem;
+
+    .urbanTransportation__stopName + & {
+      margin-inline-start: var(--normal-spacing);
+
+    }
+  }
+
+  .urbanTransportation__arrivalTime {
+    font-weight: bold;
+  }
+
+  .urbanTransportation__arrivalTimeNow {
+    font-size: 2.5rem;
+  }
+
+  .urbanTransportation__arrivalTimeNext {
+    margin-top: 10px;
+  }
+
+  .urbanTransportation__arrivalTimeNow,
+  .urbanTransportation__arrivalTimeNext {
+    text-align: right;
+  }
+
+  .urbanTransportation__button {
+    border-radius: var(--border-radius);
+  }
+
+  .urbanTransportation__button {
+    cursor: pointer;
+    padding: 16px;
+    background-color: #cd4646;
+    color: white;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
