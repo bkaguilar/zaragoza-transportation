@@ -79,6 +79,7 @@
   .urbanTransportation__radioOptions {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--normal-spacing);
   }
@@ -119,7 +120,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: -100%;
+    top: 100%;
     max-height: var(--info-height);
     gap: var(--small-spacing);
     background-color: var(--blue);
