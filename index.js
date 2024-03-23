@@ -1,4 +1,4 @@
-import { classes, constants } from "./constants.js";
+import { classes, constants, icons } from "./constants.js";
 
 class urbanTransportationApp {
     constructor() {
@@ -23,6 +23,7 @@ class urbanTransportationApp {
         this.filter = this.app.querySelector(`.${classes.filter}`);
         this.filterOptions = this.app.querySelector(`.${classes.filterOptions}`);
         this.buttonUpdate = this.app.querySelector(`.${classes.updateButton}`);
+        this.updatedTimeLabel = this.app.querySelector(`.${classes.updatedTimeLabel}`);
     }
 
     addEventListeners() {
@@ -72,6 +73,7 @@ class urbanTransportationApp {
     renderResults(value) {
         if(value === "all") {
             this.fetchAPI();
+            this.infoHTML.classList.add(classes.isHidden);
         } else {
             this.getMyLocation();
         }
@@ -91,10 +93,13 @@ class urbanTransportationApp {
             .then((data = []) => {
                 this.resultsHTML.innerHTML = '';
                 this.results = [...(data.result ?? [data])];
+                const {list, options, lastUpdatedTime} = this.getHTML(this.results);
 
-                this.resultsHTML.append(this.getHTML(this.results).list);
+                this.resultsHTML.append(list);
 
-                this.filterOptions.innerHTML = this.getHTML(this.results).options;
+                this.filterOptions.innerHTML = options;
+
+                this.updatedTimeLabel.textContent = lastUpdatedTime;
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
@@ -105,13 +110,14 @@ class urbanTransportationApp {
         const list = document.createElement('ul');
         let html;
         let options = '';
+        let htmlDirection;
+        let lastUpdatedTime;
         list.classList.add(classes.list);
 
         html = data.map(( {id = "", title = "", destinos = [], lastUpdated}) => {
-            let htmlDirection;
-
             const htmlDestinations = destinos.map((destination, index) => {
-                htmlDirection = htmlDirection ?? `<span class="${classes.directionName}">${destination?.destino}</span>`;
+                htmlDirection = htmlDirection ?? `<span class="${classes.directionName}">${destination?.destino.toLowerCase()}</span>`;
+                lastUpdatedTime = lastUpdatedTime ?? new Date(lastUpdated).toLocaleTimeString();
                 return `<li class="${index === 0 ? classes.arrivalTimeNow : classes.arrivalTimeNext}"><span>${destination?.minutos}</span><span class="${classes.label}"> MNTS</span></li>`
             });
 
@@ -119,11 +125,13 @@ class urbanTransportationApp {
 
             return destinos.length
                 ? `<li class="${classes.stopBox}" data-id="${id}">
-                    <h3>
-                        <span class="${classes.stopName}">📍${title.toLowerCase()}</span>
-                        <span class="${classes.label}">➡️ ${htmlDirection.toLowerCase()}</span>
-                        <div class="${classes.label}">Last updated time: ${new Date(lastUpdated).toLocaleTimeString()}</div>
-                    </h3>
+                    <div>
+                        <h3 class="${classes.stopName}">
+                            <span>${icons.pin}</span>
+                            <span>${title.toLowerCase()}</span>
+                        </h3>
+                        <span class="${classes.label}">➡️ ${htmlDirection}</span>
+                    </div>
                     <ul class="${classes.arrivalTime}">${htmlDestinations.join('')}</ul>
                   </li>`
                 : '';
@@ -136,6 +144,7 @@ class urbanTransportationApp {
         return {
             list,
             options,
+            lastUpdatedTime,
         };
     }
 
@@ -153,7 +162,7 @@ class urbanTransportationApp {
 
             if(!latitude.toString().startsWith('41')) {
                 console.warn(`You are out of Zaragoza`);
-                this.infoHTML.textContent = `You are out of Zaragoza`;
+                this.infoHTML.classList.remove(classes.isHidden)
                 coordinates = '';
 
             }
