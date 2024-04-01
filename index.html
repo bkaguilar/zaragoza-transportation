@@ -33,11 +33,12 @@
             <!-- <svg  width="100" height="100"><use xlink:href="/assets/svg/arrow.svg#arrow"/></svg> -->
 
             <fieldset class="urbanTransportation__inputOptions">
-                <label for="stopFilter" class="urbanTransportation__label">
-                    Filter by stop number:
-                    <img class="urbanTransportation__icon" src="assets/svg/search.svg" alt="">
-                </label>
-                <input type="number" placeholder="e.g 701" min="1" step="1" minlength="2" maxlength="5" class="urbanTransportation__input" name="stopFilter" id="stopFilter" list="stopFilterOptions">
+                <div class="urbanTransportation__inputWrapper">
+                    <label for="stopFilter" class="urbanTransportation__label">
+                        <img class="urbanTransportation__icon" src="assets/svg/search.svg" alt="">
+                    </label>
+                    <input type="number" placeholder="e.g 701" min="1" step="1" minlength="2" maxlength="5" class="urbanTransportation__input" name="stopFilter" id="stopFilter" list="stopFilterOptions">
+                </div>
                 <datalist id="stopFilterOptions" class="urbanTransportation__filerOptions">
                     <option value="701"></option>
                 </datalist>
