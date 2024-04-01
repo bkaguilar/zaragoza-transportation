@@ -7,6 +7,7 @@ export const classes = {
   input: `${base}__input`,
   radio: `${base}__radio`,
   radioOptions: `${base}__radioOptions`,
+  skeletonHTML: `${base}__skeletonWrapper`,
   resultsHTML: `${base}__results`,
   info: `${base}__info`,
   label: `${base}__label`,

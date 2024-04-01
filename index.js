@@ -19,6 +19,7 @@ class urbanTransportationApp {
         this.radioOptions = this.app.querySelector(`.${classes.radioOptions}`);
         this.poleInput = this.app.querySelector(`.${classes.input}`);
         this.resultsHTML = this.app.querySelector(`.${classes.resultsHTML}`);
+        this.skeletonHTML = this.app.querySelector(`.${classes.skeletonHTML}`);
         this.infoHTML = this.app.querySelector(`.${classes.info}`);
         this.filter = this.app.querySelector(`.${classes.filter}`);
         this.filterOptions = this.app.querySelector(`.${classes.filterOptions}`);
@@ -81,6 +82,8 @@ class urbanTransportationApp {
 
     fetchAPI(extraParams = '') {
         const apiUrl = `${constants.apiEndpoint}${extraParams}`;
+        this.skeletonHTML.classList.remove(classes.isHidden);
+        this.resultsHTML.classList.add(classes.isHidden);
 
         fetch(apiUrl)
             .then(response => {
@@ -100,6 +103,9 @@ class urbanTransportationApp {
                 this.filterOptions.innerHTML = options;
 
                 this.updatedTimeLabel.textContent = lastUpdatedTime;
+
+                this.skeletonHTML.classList.add(classes.isHidden);
+                this.resultsHTML.classList.remove(classes.isHidden);
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
@@ -110,13 +116,14 @@ class urbanTransportationApp {
         const list = document.createElement('ul');
         let html;
         let options = '';
-        let htmlDirection;
         let lastUpdatedTime;
         list.classList.add(classes.list);
 
         html = data.map(( {id = "", title = "", destinos = [], lastUpdated}) => {
+            let htmlDirection;
+
             const htmlDestinations = destinos.map((destination, index) => {
-                htmlDirection = htmlDirection ?? `<span class="${classes.directionName}">${destination?.destino.toLowerCase()}</span>`;
+                htmlDirection = `<span class="${classes.directionName}">${destination?.destino.toLowerCase()}</span>`;
                 lastUpdatedTime = lastUpdatedTime ?? new Date(lastUpdated).toLocaleTimeString();
                 return `<li class="${index === 0 ? classes.arrivalTimeNow : classes.arrivalTimeNext}"><span>${destination?.minutos}</span><span class="${classes.label}"> MNTS</span></li>`
             });

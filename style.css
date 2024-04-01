@@ -12,7 +12,7 @@
   --dark-blue: rgb(25, 51, 158);
 
   --grey: rgb(214,221,239);
-  --dark-grey: rgb(188,191,202);
+  --dark-grey: rgb(168, 171, 181);
 
   --border-radius: 12px;
   --border-width: 4px;
@@ -85,7 +85,7 @@
   }
 
   .urbanTransportation__filter,
-  .urbanTransportation__results {
+  .urbanTransportation__resultsWrapper {
     background-color: white;
     color: black;
     padding: var(--large-spacing);
@@ -104,14 +104,18 @@
   .urbanTransportation__filterLabel {
     border-radius: var(--border-radius);
     background-color: var(--grey);
-    color: var(--dark-grey);
+    color: white;
     padding: var(--small-spacing) var(--normal-spacing);
     font-weight: bold;
     cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0,0,0, 0.3);
 
     .urbanTransportation__radio:checked + & {
       background-color: var(--normal-blue);
-      color: white;
+    }
+
+    .urbanTransportation__radio:disabled + & {
+      color: var(--dark-grey);
     }
   }
 
@@ -129,7 +133,7 @@
     padding: var(--small-spacing) var(--normal-spacing);
   }
 
-  .urbanTransportation__results {
+  .urbanTransportation__resultsWrapper {
     margin-top: var(--xLarge-spacing);
     border-radius: 40px;
   }
@@ -218,7 +222,6 @@
 
     .urbanTransportation__stopName + & {
       margin-inline-start: var(--normal-spacing);
-
     }
   }
 
@@ -252,4 +255,49 @@
     font-weight: bold;
     text-transform: uppercase;
   }
+/* 
+  .urbanTransportation__skeleton {
+    display: block;
+    width: 100%;
+    height: 20px;
+    background-image: linear-gradient(to right,  var(--dark-grey) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    animation: lineAnimation 2s linear infinite;
+    margin: 20px 0;
+  }
+
+  @keyframes lineAnimation {
+    0% {
+      background-position: right bottom;
+    }
+    100% {
+      background-position: left bottom;
+    }
+  } */
+
+  .urbanTransportation__skeleton {
+    display: inline-block;
+    width: 100%;
+    height: 1.2em;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--dark-grey);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255,255,255, 0.2), rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0));
+      animation: shimmer 5s infinite;
+    }
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
 }
